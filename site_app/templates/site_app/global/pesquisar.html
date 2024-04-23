@@ -1,0 +1,39 @@
+{% extends "site_app/global/base.html" %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <form action="{% url 'home' %}" method="get">
+        {% csrf_token %}
+        <input type="text" name="nome" placeholder="Nome completo" />
+        <button type="submit">Pesquisar</button>
+    </form>
+
+    {% if dados %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Código de Barras</th>
+                <th>Preço</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in dados %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.codigo_barras }}</td>
+                <td>{{ item.preco }}</td>
+                <td>
+                    <a class="btn btn-danger" href="{% url 'deletar' id=item.id %}">Deletar</a>
+                    <a class="btn btn-primary" href="{% url 'atualizar' id=item.id %}">Atualizar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock content %}

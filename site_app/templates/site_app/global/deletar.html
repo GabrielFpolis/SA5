@@ -1,0 +1,62 @@
+{% extends "site_app/global/base.html" %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div>
+        <!-- {% if nome %} -->
+            <h1> Usuário cadastrado com sucesso: </h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nome</th>
+                        <th>Codigo de Barras</th>
+                        <th>Preço</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="27%">{{id}}</td>
+                        <td width="27%">{{nome}}</td>
+                        <td width="27%">{{codigo_barras}}</td>                
+                        <td width="27%">{{preco}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        <!-- {% endif %} -->
+        {% if not nome %}
+            {% if dados %}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Codigo de Barras</th>
+                    <th>Preço</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for row in dados %}
+                        {% if row.id <= 9 %}
+                        <tr>
+                            <td width="27%">{{row.id}}</td>
+                            <td width="27%">{{row.nome}}</td>
+                            <td width="27%">{{row.codigo_barras}}</td>
+                            <td width="27%">{{row.preco}}</td>
+                            <td width="25%">
+                                <a class="btn btn-primary" href="{% url "deletar" row.id %}">Deletar</a> 
+                                
+                            </td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %} 
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
+
